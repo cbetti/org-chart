@@ -1,0 +1,15 @@
+#!/bin/bash
+
+echo checking tests/goldenimage/expected.out
+echo
+
+python orgchart/validate.py --datadir tests/goldenimage > test.out
+
+if ! diff -q tests/goldenimage/expected.out test.out; then
+	echo
+	diff tests/goldenimage/expected.out test.out
+else
+	echo OK
+fi
+
+rm test.out

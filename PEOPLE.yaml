@@ -1,0 +1,19 @@
+# PEOPLE
+#     Feel free to change this file!
+#     After changing, run `python orgchart/validate.py`
+# valid keys (see orgchart/fields.py):
+#     name
+#     email
+#     manager
+#     team
+#     slack handle
+- name: John Johnson
+  email: jj@example.com
+  manager: William Wilson
+  team: Applications
+  slack handle: '@jj'
+- name: William Wilson
+  email: ww@example.com
+  manager: John Johnson
+  team: Integrations
+  slack handle: '@ww'

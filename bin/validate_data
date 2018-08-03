@@ -1,0 +1,128 @@
+#!/usr/bin/perl
+
+# This was the proof of concept. It's here now only as a reference.
+#
+
+use common::sense;
+use Data::Dumper;
+
+
+my $PEOPLE_FILE = "PEOPLE";
+my $TEAMS_FILE = "TEAMS";
+
+sub error {
+	my $msg = shift;
+	print("        ERROR: $msg\n");
+}
+
+#sub load {
+#	my $file = shift;
+#	open my $handle, '<', $file or do {
+#		error("file missing");
+#		return ();
+#	};
+#	chomp(my @lines = <$handle>);
+#	close $handle;
+#	return @lines;
+#}
+
+#sub csvonly {
+#	@_ = grep ! /^#/, @_;
+#	@_ = grep /,/, @_;
+#	return @_;
+#}
+
+#sub splitcsv {
+#	my @arrofarr = ();
+#	for my $line (@_) {
+#		my @arr = split /,/, $line, -1; # -1 preserves empty strings at right
+#		push @arrofarr, \@arr;
+#	}
+#	return @arrofarr;
+#}
+
+#sub filestructure {
+#	print("Checking Filestructure...\n\n");
+#	my @FILES = ( $PEOPLE_FILE, $TEAMS_FILE );
+#	for my $file (@FILES) {
+#		print("\n    checking ./$file\n\n");
+#		my @lines = load( $file );
+#		@lines = csvonly( @lines );
+#		if( scalar @lines < 2 ) {
+#			error("no content");
+#			next;
+#		}
+#		my $commas_expected = () = $lines[0] =~ /,/g;
+#		for my $line (@lines[1 .. $#lines]) {
+#			my $commas_found = () = $line =~ /,/g;
+#			error("wrong number of fields: $line") if ($commas_found != $commas_expected);
+#		}
+#	}
+#}
+
+#  input: "stuff", ([h1,h2,h3],[va1,va2,va3],[vb1,vb2,vb3])
+# output: {
+#             "_INDEXNAME" => "stuff",
+#             h1 => { va1 => [matching_row_refs..], vb1 => [matching_row_refs..] },
+#             h2 => { va2 => [matching_row_refs..], vb2 => [matching_row_refs..] },
+#             h3 => { va3 => [matching_row_refs..], vb3 => [matching_row_refs..] },
+#         }
+sub genindex {
+	my $indexname = shift;
+	my $headersref = shift;
+	my %ind = ( "_INDEXNAME" => $indexname );
+	my @headers = @{$headersref};
+	my @datarefs = @_;
+	for my $dataref (@datarefs) {
+		my @data = @{$dataref};
+		for my $i (0 .. $#headers) {
+			my $header = $headers[$i];
+			my $value = $data[$i];
+			push @{$ind{$header}{$value}}, $dataref;
+		}
+	}
+	return %ind;
+}
+
+sub checkdupes {
+	my $index = shift;
+	my $header = shift;
+	my @dupes = map { scalar @{$index->{$header}{$_}} > 1 ? $_ : () } keys $index->{$header};
+	@dupes = grep /./, @dupes;
+	error("duplicate $header(s) found: " . join ', ', @dupes) if @dupes;
+}
+
+sub allpresentin {
+	my ($index, $header, $targetindex, $targetheader) = @_;
+	my %tracker = map { $_ => 1 } keys $index->{$header};
+	map { $tracker{$_}-- } keys $targetindex->{$targetheader};
+	my @notfound = map { $tracker{$_} > 0 ? $_ : () } keys %tracker;
+	@notfound = grep /./, @notfound;
+	error($index->{"_INDEXNAME"} . ".$header(s) not found in " . $targetindex->{"_INDEXNAME"} . ".$targetheader: " . join ', ', @notfound) if @notfound;
+}
+
+sub consistency {
+	print("Checking Consistency...\n\n");
+	my @peoplelines = splitcsv( csvonly( load( $PEOPLE_FILE )));
+	my @teamlines = splitcsv( csvonly( load( $TEAMS_FILE )));
+	my %people = genindex("people", @peoplelines);
+	my %teams = genindex("teams", @teamlines);
+	checkdupes(\%people, "Person");
+	checkdupes(\%people, "Email");
+	checkdupes(\%people, "Slack Handle");
+	checkdupes(\%teams, "Team");
+	checkdupes(\%teams, "Team Email");
+	checkdupes(\%teams, "Public Slack Channel");
+	allpresentin(\%teams, "Lead", \%people, "Person");
+	allpresentin(\%teams, "Manager/Director", \%people, "Person");
+	allpresentin(\%people, "Team", \%teams, "Team");
+}
+
+sub missinginfo {
+	# TODO: warn on missing values
+}
+
+print "\n";
+#filestructure();
+consistency();
+missinginfo();

@@ -1,0 +1,28 @@
+# PEOPLE
+# 
+# valid keys (see orgchart/fields.py):
+#     name
+#     email
+#     manager
+#     team
+#     slack handle
+- name: John Johnson
+  email: jj@example.com
+  manager: Michael Miller
+  team: Applications
+  slack handle: '@jj'
+- name: William Wilson
+  email: ww@example.com
+  manager: Maria Moore
+  team: Integrations
+  slack handle: '@ww'
+- name: April Adams
+  email: aa@example.com
+  manager: The Boss
+  team: Non-existent Team
+  slack handle: '@aa'
+- name: The Boss
+  email: boss@example.com
+- name: Stolen Identity
+  email: ww@example.com
+- name: No Contact

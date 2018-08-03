@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+click = "*"
+PyYAML = "*"
+
+[dev-packages]
+pytest = "*"
+coverage = "*"
+factory-boy = "*"
+pytest-pylint = "*"
+pytest-runner = "*"
+pycodestyle = "*"
+
+[requires]
+python_version = "3.6"

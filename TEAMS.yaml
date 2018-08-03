@@ -1,0 +1,22 @@
+# TEAMS
+#     Feel free to change this file!
+#     After changing, run `python orgchart/validate.py`
+# valid keys (see orgchart/fields.py):
+#     team
+#     lead
+#     reporting to
+#     team email
+#     publick slack channel
+#     slack handle
+- team: Applications
+  lead: John Johnson
+  reporting to: William Wilson
+  team email: applications-team@example.com
+  public slack channel: \#applications-team
+  slack handle: '@applications-team'
+- team: Integrations
+  lead: William Wilson
+  reporting to: John Johnson
+  team email: integrations-team@example.com
+  public slack channel: \#integrations-team
+  slack handle: '@ingegrations-team'

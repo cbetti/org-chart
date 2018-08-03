@@ -1,0 +1,7 @@
+        ERROR (PEOPLE): duplicate email(s) found: ww@example.com
+        ERROR: PEOPLE[manager(s)] not found in PEOPLE[name]: Maria Moore, Michael Miller
+        ERROR: TEAMS[reporting to(s)] not found in PEOPLE[name]: Michael Miller
+        ERROR: PEOPLE[team(s)] not found in TEAMS[team]: Non-existent Team
+        WARN (PEOPLE): missing email for: No Contact
+        WARN (PEOPLE): missing slack handle for: No Contact, Stolen Identity, The Boss
+        WARN (TEAMS): missing slack handle for: Integrations
