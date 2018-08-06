@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 click = "*"
+graphviz = "*"
 PyYAML = "*"
 
 [dev-packages]

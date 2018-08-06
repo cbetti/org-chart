@@ -1,3 +1,4 @@
 Pipfile.lock
 .pytest_cache
 orgchart/.pytest_cache
+graphviz-orgchart*

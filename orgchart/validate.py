@@ -16,11 +16,7 @@ def validate(datadir=os.getcwd()):
     indexer = Indexer(datadir)
     indexer.load()
     indexer.index()
-    validator = Validation(
-        indexer.people(),
-        indexer.teams(),
-        indexer.peoplelist(),
-        indexer.teamslist())
+    validator = Validation(indexer)
     validator.validate()
 
 

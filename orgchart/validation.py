@@ -56,11 +56,8 @@ def checkmissing(itemlist, listname, field, identifybyfield):
 class Validation:
     """ Ensure data files are well formatted and consistent. """
 
-    def __init__(self, peopleindex, teamsindex, peoplecontent, teamscontent):
-        self.peopleindex = peopleindex
-        self.teamsindex = teamsindex
-        self.peoplecontent = peoplecontent
-        self.teamscontent = teamscontent
+    def __init__(self, indexes):
+        self.indexes = indexes
 
     def validate(self):
         self.fields()
@@ -68,26 +65,31 @@ class Validation:
         self.missinginfo()
 
     def fields(self):
-        extraneousfields(self.peoplecontent, 'PEOPLE', fields.PERSONFIELDS)
-        extraneousfields(self.teamscontent, 'TEAMS', fields.TEAMFIELDS)
+        extraneousfields(self.indexes.peoplecontent,
+                         'PEOPLE', fields.PERSONFIELDS)
+        extraneousfields(self.indexes.teamscontent,
+                         'TEAMS', fields.TEAMFIELDS)
 
     def consistency(self):
-        checkdupes(self.peopleindex, 'name')
-        checkdupes(self.peopleindex, 'email')
-        checkdupes(self.peopleindex, 'slack handle')
-        checkdupes(self.teamsindex, 'team')
-        checkdupes(self.teamsindex, 'team email')
-        checkdupes(self.teamsindex, 'public slack channel')
-        allpresentin(self.peopleindex, 'manager',
-                     self.peopleindex, 'name')
-        allpresentin(self.teamsindex, 'lead',
-                     self.peopleindex, 'name')
-        allpresentin(self.teamsindex, 'reporting to',
-                     self.peopleindex, 'name')
-        allpresentin(self.peopleindex, 'team',
-                     self.teamsindex, 'team')
+        checkdupes(self.indexes.peopleindex, 'name')
+        checkdupes(self.indexes.peopleindex, 'email')
+        checkdupes(self.indexes.peopleindex, 'slack handle')
+        checkdupes(self.indexes.teamsindex, 'team')
+        checkdupes(self.indexes.teamsindex, 'team email')
+        checkdupes(self.indexes.teamsindex, 'public slack channel')
+        allpresentin(self.indexes.peopleindex, 'manager',
+                     self.indexes.peopleindex, 'name')
+        allpresentin(self.indexes.teamsindex, 'lead',
+                     self.indexes.peopleindex, 'name')
+        allpresentin(self.indexes.teamsindex, 'reporting to',
+                     self.indexes.peopleindex, 'name')
+        allpresentin(self.indexes.peopleindex, 'team',
+                     self.indexes.teamsindex, 'team')
 
     def missinginfo(self):
-        checkmissing(self.peoplecontent, 'PEOPLE', 'email', 'name')
-        checkmissing(self.peoplecontent, 'PEOPLE', 'slack handle', 'name')
-        checkmissing(self.teamscontent, 'TEAMS', 'slack handle', 'team')
+        checkmissing(self.indexes.peoplecontent,
+                     'PEOPLE', 'email', 'name')
+        checkmissing(self.indexes.peoplecontent,
+                     'PEOPLE', 'slack handle', 'name')
+        checkmissing(self.indexes.teamscontent,
+                     'TEAMS', 'slack handle', 'team')

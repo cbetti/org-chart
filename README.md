@@ -8,6 +8,18 @@ Run this from the root directory:
 
     pipenv install -d
 
+## Viewing the Org Chart
+
+The org chart is really the data itself. Just look at it:
+
+    cat TEAMS.yaml
+    cat PEOPLE.yaml
+
+Or render an image. Reporting structure is supported at this time. Make sure
+you have graphviz' 'dot' on your path, and try this:
+
+    pipenv run python orgchart/picture.py reporting
+
 ## Changing the Org Chart
 
 Simply change PEOPLE.yaml and TEAMS.yaml, and commit. These files serve as both
@@ -15,20 +27,17 @@ a direct reference, as well as inputs to the helpful tools in this project.
 
 Before committing your work, validate your changes:
 
-    pipenv shell
-    python orgchart/validate.py
+    pipenv run python orgchart/validate.py
 
 ## Changing the Code
 
 Run the test:
 
-    pipenv shell
-    ./tests/run
+    pipenv run ./tests/run
 
 Run the scripts on the current org chart as a sanity check:
 
-    pipenv shell
-    python orgchart/validate.py
+    pipenv run python orgchart/validate.py
 
 Run the linters:
 
