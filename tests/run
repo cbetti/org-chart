@@ -1,15 +1,60 @@
 #!/bin/bash
 
-echo checking tests/goldenimage/expected.out
+EXPECTED=tests/goldenimage/validation.expected
+echo checking ${EXPECTED}
 echo
 
 python orgchart/validate.py --datadir tests/goldenimage > test.out
 
-if ! diff -q tests/goldenimage/expected.out test.out; then
+if ! diff -q tests/goldenimage/validation.expected test.out; then
 	echo
-	diff tests/goldenimage/expected.out test.out
+	diff tests/goldenimage/validation.expected test.out
 else
 	echo OK
 fi
 
 rm test.out
+
+
+#EXPECTED=tests/goldenimage/graphviz-orgchart.reporting.expected
+#echo checking ${EXPECTED}
+#echo
+#
+#python orgchart/picture.py reporting --datadir tests/goldenimage --engine dot --no-open
+#
+#if ! diff -q "${EXPECTED}" graphviz-orgchart; then
+#    echo
+#    diff "${EXPECTED}" graphviz-orgchart; then
+#else
+#    echo OK
+#fi
+
+
+#EXPECTED=tests/goldenimage/graphviz-orgchart.teams.no-teammembers.expected
+#echo checking ${EXPECTED}
+#echo
+#
+#python orgchart/picture.py reporting --datadir tests/goldenimage --engine dot --no-open --no-teammembers
+#
+#if ! diff -q "${EXPECTED}" graphviz-orgchart; then
+#    echo
+#    diff "${EXPECTED}" graphviz-orgchart; then
+#else
+#    echo OK
+#fi
+
+
+#EXPECTED=tests/goldenimage/graphviz-orgchart.teams.teammembers.expected
+#echo checking ${EXPECTED}
+#echo
+#
+#python orgchart/picture.py reporting --datadir tests/goldenimage --engine dot --no-open --teammembers
+#
+#if ! diff -q "${EXPECTED}" graphviz-orgchart; then
+#    echo
+#    diff "${EXPECTED}" graphviz-orgchart; then
+#else
+#    echo OK
+#fi
+
+

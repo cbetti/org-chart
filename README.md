@@ -15,10 +15,11 @@ The org chart is really the data itself. Just look at it:
     cat TEAMS.yaml
     cat PEOPLE.yaml
 
-Or render an image. Reporting structure is supported at this time. Make sure
-you have graphviz' 'dot' on your path, and try this:
+Or render an image. "reporting" and "teams" structures are supported at this
+time. Make sure you have graphviz' 'dot' on your path, and try this:
 
     pipenv run python orgchart/picture.py reporting
+    pipenv run python orgchart/picture.py teams
 
 ## Changing the Org Chart
 

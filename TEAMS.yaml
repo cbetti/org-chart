@@ -10,13 +10,34 @@
 #     slack handle
 - team: Applications
   lead: John Johnson
+  part of: Consumer
   reporting to: William Wilson
   team email: applications-team@example.com
   public slack channel: \#applications-team
   slack handle: '@applications-team'
+- team: Frontend
+  lead: Frank Fallovallita
+  part of: Consumer
+  reporting to: William Wilson
+  team email: frontend-team@example.com
+  public slack channel: \#frontend-team
+  slack handle: '@frontend-team'
 - team: Integrations
   lead: William Wilson
+  part of: Partner Success
   reporting to: John Johnson
   team email: integrations-team@example.com
   public slack channel: \#integrations-team
   slack handle: '@ingegrations-team'
+- team: Consumer
+  lead: Director One
+  reporting to: Head Honcho
+  slack handle: '@consumer-group'
+- team: Partner Success
+  lead: Director Two
+  reporting to: Head Honcho
+  slack handle: '@partner-success-group'
+- team: QA
+  lead: Quami Quality
+  reporting to: Head Honcho
+  slack handle: '@qa-team'

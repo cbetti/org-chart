@@ -17,3 +17,39 @@
   manager: John Johnson
   team: Integrations
   slack handle: '@ww'
+- name: Frank Fallovallita
+  email: ff@example.com
+  manager: William Wilson
+  team: Frontend
+  slack handle: '@ff'
+- name: Manny Mansfield
+  email: mm@example.com
+  manager: William Wilson
+  team: Integrations
+  slack handle: '@mm'
+- name: Andy Applegate
+  email: aa@example.com
+  manager: William Wilson
+  team: Integrations
+  slack handle: '@aa'
+- name: Quami Quality
+  email: qq@example.com
+  manager: John Johnson
+  team: QA
+  #assisting teams:
+  #- Applications
+  #- Frontend
+  slack handle: '@qq'
+- name: Director One
+  email: d1@example.com
+  manager: Head Honcho
+  team: Consumer
+  slack handle: '@d1'
+- name: Director Two
+  email: d2@example.com
+  manager: Head Honcho
+  team: Partner Success
+  slack handle: '@d2'
+- name: Head Honcho
+  email: hh@example.com
+  slack handle: '@hh'
